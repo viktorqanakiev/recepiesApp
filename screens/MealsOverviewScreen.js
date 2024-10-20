@@ -1,7 +1,6 @@
+import MealList from "../components/MealList/MealList";
 import { MEALS, CATEGORIES } from "../data/dummy-data";
-import { StyleSheet, View, Text, FlatList } from "react-native";
-import MealItem from "../components/MealItem";
-import { useEffect, useLayoutEffect } from "react";
+import {useLayoutEffect } from "react";
 
 // every componenty which is registered as a screen gets a route prop, explained in 99
 function MealsOverviewScreen({ route, navigation }) {
@@ -24,37 +23,7 @@ function MealsOverviewScreen({ route, navigation }) {
     });
   }, [catId, navigation]);
 
-  function renderMealItem(itemData) {
-    const item = itemData.item;
-    const mealItemProps = {
-      id: item.id,
-      title: item.title,
-      imageUrl: item.imageUrl,
-      affordability: item.affordability,
-      complexity: item.complexity,
-      duration: item.duration,
-    };
-    return (
-      //   <MealItem title={itemData.item.title} imageUrl={itemData.item.imageUrl} />
-
-      //with this syntax we can distribute all the props from the object
-      <MealItem {...mealItemProps} />
-    );
-  }
-
-  return (
-    <FlatList
-      data={displayedMeals}
-      keyExtractor={(item) => item.id}
-      renderItem={renderMealItem}
-    />
-  );
+  return <MealList items={displayedMeals}/>
 }
 export default MealsOverviewScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-  },
-});
